@@ -8,12 +8,12 @@ FROM {local countdown is 10.} UNTIL countdown = 0 STEP {SET countdown to countdo
     WAIT 1.
 }
 
-LOCK STEERING TO UP.
-
-UNTIL SHIP:MAXTHRUST > 0 {
-    WAIT 0.5.
-    PRINT "Stage activated.".
+WHEN MAXTHRUST = 0 THEN {
+    PRINT "Staging.".
     STAGE.
-}
+    PRESERVE.
+}.
+
+LOCK STEERING TO UP.
 
 WAIT UNTIL SHIP:ALTITUDE > 70000.
