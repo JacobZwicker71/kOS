@@ -1,20 +1,20 @@
-CLEARSCREEN.
+clearScreen.
 
-LOCK THROTTLE TO 1.0.
+lock throttle to 1.0.
 
-PRINT "Counting down:".
-FROM {local countdown is 10.} UNTIL countdown = 0 STEP {SET countdown to countdown - 1.} DO {
-    PRINT "..." + countdown.
-    WAIT 1.
+print "Counting down:".
+from {local countdown is 10.} until countdown = 0 step {set countdown to countdown - 1.} do {
+    print countdown + "...".
+    wait 1.
 }
 
-WHEN MAXTHRUST = 0 THEN {
-    PRINT "Staging.".
-    STAGE.
-    WAIT 1.
-    PRESERVE.
+when maxThrust = 0 then {
+    print "Staging.".
+    stage.
+    wait 1.
+    preserve.
 }.
 
-LOCK STEERING TO HEADING(0, 90).
+lock steering to heading(0, 90).
 
-WAIT UNTIL SHIP:ALTITUDE > 100000.
+wait until ship:altitude > 100000.
