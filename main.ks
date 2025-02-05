@@ -15,6 +15,20 @@ when maxThrust = 0 then {
     preserve.
 }.
 
-lock steering to heading(0, 90).
+set pAngle to 90.
+set cAngle to 0.
+set tHead to heading(cAngle, pAngle).
+lock steering to tHead.
 
-wait until ship:altitude > 100000.
+until ship:velocity:surface:mag > 800 {
+    when mod(ship:velocity:surface:mag, 100) = 0 then {
+        set pAngle to pAngle - ((ship:velocity:surface:mag / 100) * 10).
+        print "Pitching to " + pAngle + " degrees at azimuth " + cAngle at(0, 15).
+        print round(ship:apoapsis, 0) at (0, 16).
+    }
+    set tHead to heading(cAngle, pAngle).
+}
+
+print "100KM apoapsis reached, cuttle throttle".
+lock throttle to 0.
+set ship:control:pilotmainthrottle to 0.
