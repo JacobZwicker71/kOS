@@ -1,12 +1,18 @@
 clearScreen.
 
-lock throttle to 1.0.
+lock throttle to 0.
+
+print"STARTING ENGINES".
+stage.
 
 print "Counting down:".
 from {local countdown is 10.} until countdown = 0 step {set countdown to countdown - 1.} do {
     print countdown + "...".
+    lock throttle to (10 - countdown) / 10.
     wait 1.
 }
+
+stage.
 
 when maxThrust = 0 then {
     print "Staging.".
@@ -16,17 +22,20 @@ when maxThrust = 0 then {
 }.
 
 set pAngle to 90.
-set cAngle to 0.
+set cAngle to 90.
 set tHead to heading(cAngle, pAngle).
 lock steering to tHead.
 
 until ship:velocity:surface:mag > 800 {
-    when mod(ship:velocity:surface:mag, 100) = 0 then {
-        set pAngle to pAngle - ((ship:velocity:surface:mag / 100) * 10).
-        print "Pitching to " + pAngle + " degrees at azimuth " + cAngle at(0, 15).
-        print round(ship:apoapsis, 0) at (0, 16).
+    when mod(round(ship:velocity:surface:mag, 0), 100) = 0 then {
+        // print mod(ship:velocity:surface:mag, 100) + 100.
+        set pAngle to (90 - ((round(ship:velocity:surface:mag, 0) / 100) * 10)).
+        print "Pitching to " + pAngle + " degrees".
+        print round(ship:apoapsis, 0).
+        set tHead to heading(cAngle, pAngle).
+        wait 1.
+        preserve.
     }
-    set tHead to heading(cAngle, pAngle).
 }
 
 print "100KM apoapsis reached, cuttle throttle".
