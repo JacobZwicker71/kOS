@@ -1,10 +1,5 @@
-local nsr is lexicon().
-runOncePath("/Classes/Object.ks").
-runOncePath("/Classes/Map.ks").
+runOncePath("./Classes/Ship.ks").
 
-LOCAL library IS Map:new().
-library:put("Object", Object).
-library:put("Map", Map).
+local thisShip is Ship(0, 2).
 
-LOCAL namespace IS Map:new(Lexicon(), Object:new(nsr)).
-namespace:put("oo", library). 
+print thisShip:
